@@ -20,7 +20,9 @@ async def fetch(url: str) -> str:
 
 async def main() -> None:
     url = "https://670bef0e7e5a228ec1cf1824.mockapi.io/api/v1/user"
-    users = await fetch(url)
+
+    tasks = [fetch(url) for _ in range(100)]
+    users = await asyncio.gather(*tasks)
 
     print(users)
 
